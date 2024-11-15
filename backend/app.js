@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
+require("dotenv").config({path : "./config/config.env"})
 
 const app = express();
 
@@ -9,9 +10,7 @@ app.use(express.json()); // response gets in json format
 app.use(morgan("tiny")); // logs which api is called or hit
 
 //routes
-app.get("/", (req, res) => {
-    res.send("Hello World");
-})
+app.use("/api", require("./routes/auth"))
 
 //server configuration
 const PORT = process.env.PORT || 8000
