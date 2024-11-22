@@ -24,7 +24,16 @@ const PlusIcon = createSvgIcon(
 export const NAVIGATION = [
   {
     kind: "header",
-    title: "Main items",
+  },
+  {
+    segment: "register",
+    title: "Register",
+    icon: <PlusIcon />,
+  },
+  {
+    segment: "Login",
+    title: "Create",
+    icon: <PlusIcon />,
   },
   {
     segment: "create",
