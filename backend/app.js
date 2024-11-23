@@ -9,6 +9,7 @@ const app = express();
 //middlewares
 app.use(express.json()); // response gets in json format
 app.use(morgan("tiny")); // logs which api is called or hit
+app.use(require("cors")())
 
 //routes
 app.get("/protected",auth,(req,res) =>{

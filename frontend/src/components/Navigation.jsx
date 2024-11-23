@@ -21,18 +21,18 @@ const PlusIcon = createSvgIcon(
   "Plus"
 );
 
-export const NAVIGATION = [
+export const Navigation = [
   {
     kind: "header",
   },
   {
-    segment: "register",
-    title: "Register",
+    segment: "signin",
+    title: "SignIn",
     icon: <PlusIcon />,
   },
   {
-    segment: "Login",
-    title: "Create",
+    segment: "signup",
+    title: "Signup",
     icon: <PlusIcon />,
   },
   {

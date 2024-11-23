@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-router.post("/register", async (req, res) => {
+router.post("/signup", async (req, res) => {
     const { name, email, password } = req.body;
   
     // check all the missing fields.
@@ -55,7 +55,7 @@ router.post("/register", async (req, res) => {
     }
   });
   
-  router.post("/login", async (req, res) => {
+  router.post("/signin", async (req, res) => {
     const { email, password } = req.body;
   
     if (!email || !password)

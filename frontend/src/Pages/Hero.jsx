@@ -1,32 +1,29 @@
 import React from "react";
-import { NAVIGATION } from "../components/Navigation";
+import { Navigation } from "../components/Navigation";
 import { demoTheme } from "../components/Navigation";
 import { PageContainer } from "@toolpad/core/PageContainer";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
-import { AppProvider } from '@toolpad/core/AppProvider';
-import { Routes as Switch , Route} from "react-router-dom";
-import SignIn from "../components/SignIn";
-import SignUp from "../components/SignUp";
+import { AppProvider } from "@toolpad/core/AppProvider";
+import { Routes, Route } from "react-router-dom";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import { AuthContextProvider } from "../context/AuthContext";
 
 const Hero = () => {
-  
   return (
-    
-      <AppProvider
-        navigation={NAVIGATION}
-        theme={demoTheme}
-      >
-  
+    <AppProvider navigation={Navigation} theme={demoTheme}>
+      <AuthContextProvider>
         <DashboardLayout>
           <PageContainer>
-            <Switch>
-              <Route path="/" element={Hero}/>
-              <Route path="/signup" element={<SignUp/>}/>
-              <Route path="/signin" element={<SignIn/>}/>
-            </Switch>
+            <Routes>
+              <Route path="/" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
+            </Routes>
           </PageContainer>
         </DashboardLayout>
-      </AppProvider>
+      </AuthContextProvider>
+    </AppProvider>
   );
 };
 
