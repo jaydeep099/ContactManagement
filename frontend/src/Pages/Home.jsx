@@ -15,12 +15,12 @@ const Home = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box textAlign="center" sx={{ mt: 4 }}>
+      <Box sx={{ textAlign: "center", mt: 4 }}>
         <Typography variant="h3" gutterBottom>
-          Welcome {user ? user.name : null}
+          Welcome {user ? user.name : "Guest"}
         </Typography>
         <hr />
-        <Button variant="contained" color="info" sx={{ mt: 2 }}>
+        <Button variant="contained" color="primary" sx={{ mt: 2 }}>
           Add Contacts
         </Button>
       </Box>
