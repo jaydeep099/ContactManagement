@@ -2,7 +2,8 @@ import { extendTheme } from "@mui/material/styles";
 import { createSvgIcon } from "@mui/material/utils";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-
+import LoginIcon from '@mui/icons-material/Login';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 const PlusIcon = createSvgIcon(
   <svg
@@ -28,12 +29,12 @@ export const Navigation = [
   {
     segment: "signin",
     title: "SignIn",
-    icon: <PlusIcon />,
+    icon: <LoginIcon/>,
   },
   {
     segment: "signup",
     title: "Signup",
-    icon: <PlusIcon />,
+    icon: <HowToRegIcon />,
   },
   {
     segment: "create",

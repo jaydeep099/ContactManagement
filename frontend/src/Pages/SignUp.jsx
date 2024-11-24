@@ -6,11 +6,12 @@ import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
 import AppTheme from "../components/AppTheme";
 import ColorModeSelect from "../customizations/ColorModeSelect";
+import AuthContext from "../context/AuthContext"; 
+import { useContext, useState } from "react";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -31,29 +32,6 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
-const SignUpContainer = styled(Stack)(({ theme }) => ({
-  height: "calc((1 - var(--template-frame-height, 0)) * 100dvh)",
-  minHeight: "100%",
-  padding: theme.spacing(2),
-  [theme.breakpoints.up("sm")]: {
-    padding: theme.spacing(4),
-  },
-  "&::before": {
-    content: '""',
-    display: "block",
-    position: "absolute",
-    zIndex: -1,
-    inset: 0,
-    backgroundImage:
-      "radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))",
-    backgroundRepeat: "no-repeat",
-    ...theme.applyStyles("dark", {
-      backgroundImage:
-        "radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))",
-    }),
-  },
-}));
-
 export default function SignUp(props) {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
@@ -61,15 +39,25 @@ export default function SignUp(props) {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState("");
+  const { registerUser } = useContext(AuthContext);
+
+  const [credentials, setCredentials] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    setCredentials({ ...credentials, [name]: value });
+  };
 
   const validateInputs = () => {
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const name = document.getElementById("name");
-
+    
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    if (!credentials.email || !/\S+@\S+\.\S+/.test(credentials.email)) {
       setEmailError(true);
       setEmailErrorMessage("Please enter a valid email address.");
       isValid = false;
@@ -78,7 +66,7 @@ export default function SignUp(props) {
       setEmailErrorMessage("");
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!credentials.password || credentials.password.length < 6) {
       setPasswordError(true);
       setPasswordErrorMessage("Password must be at least 6 characters long.");
       isValid = false;
@@ -87,7 +75,7 @@ export default function SignUp(props) {
       setPasswordErrorMessage("");
     }
 
-    if (!name.value || name.value.length < 1) {
+    if (!credentials.name || credentials.name.length < 1) {
       setNameError(true);
       setNameErrorMessage("Name is required.");
       isValid = false;
@@ -104,20 +92,25 @@ export default function SignUp(props) {
       event.preventDefault();
       return;
     }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    event.preventDefault();
+
+    if (
+      !credentials.email ||
+      !credentials.password ||
+      !credentials.name
+    ) {
+      console.error("please enter all the required fields!");
+      return;
+    }
+    
+    const userData = { ...credentials};
+    registerUser(userData);
   };
 
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
       <ColorModeSelect sx={{ position: "fixed", top: "1rem", right: "1rem" }} />
-      <SignUpContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">
           <Typography
             component="h1"
@@ -143,6 +136,7 @@ export default function SignUp(props) {
                 error={nameError}
                 helperText={nameErrorMessage}
                 color={nameError ? "error" : "primary"}
+                onChange={handleInputChange}
               />
             </FormControl>
             <FormControl>
@@ -158,6 +152,7 @@ export default function SignUp(props) {
                 error={emailError}
                 helperText={emailErrorMessage}
                 color={passwordError ? "error" : "primary"}
+                onChange={handleInputChange}
               />
             </FormControl>
             <FormControl>
@@ -174,6 +169,7 @@ export default function SignUp(props) {
                 error={passwordError}
                 helperText={passwordErrorMessage}
                 color={passwordError ? "error" : "primary"}
+                onChange={handleInputChange}
               />
             </FormControl>
             <Button
@@ -186,7 +182,6 @@ export default function SignUp(props) {
             </Button>
           </Box>
         </Card>
-      </SignUpContainer>
     </AppTheme>
   );
 }
