@@ -36,21 +36,6 @@ export const Navigation = [
     title: "Signup",
     icon: <HowToRegIcon />,
   },
-  {
-    segment: "create",
-    title: "Create",
-    icon: <PlusIcon />,
-  },
-  {
-    segment: "update",
-    title: "Update",
-    icon: <ArrowUpwardIcon />,
-  },
-  {
-    segment: "delete",
-    title: "Delete",
-    icon: <DeleteIcon />,
-  },
 ];
 
 export const demoTheme = extendTheme({

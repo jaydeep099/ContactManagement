@@ -13,6 +13,10 @@ const Home = () => {
     }
   }, [user, navigate]);
 
+  const handleAddContact = () => {
+    navigate("/contacts");
+  };
+
   return (
     <Container maxWidth="sm">
       <Box sx={{ textAlign: "center", mt: 4 }}>
@@ -20,7 +24,12 @@ const Home = () => {
           Welcome {user ? user.name : "Guest"}
         </Typography>
         <hr />
-        <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ mt: 2 }}
+          onClick={handleAddContact}
+        >
           Add Contacts
         </Button>
       </Box>
