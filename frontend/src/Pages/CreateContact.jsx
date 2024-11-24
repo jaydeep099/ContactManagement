@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { TextField, Button, Container, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CreateContact = () => {
-
   const [userDetails, setUserDetails] = useState({
     firstname: "",
     lastname: "",
@@ -11,6 +11,8 @@ const CreateContact = () => {
     phone: "",
     company: "",
   });
+
+  const navigate = useNavigate(); // Initialize the navigate function
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -31,7 +33,15 @@ const CreateContact = () => {
     const result = await res.json();
     if (!result.error) {
       console.log(`Created [${userDetails.firstname} ${userDetails.lastname}] contact`);
-      setUserDetails({ firstname: "", lastname: "", jobtitle: "", email: "", phone: "", company: "" });
+      setUserDetails({
+        firstname: "",
+        lastname: "",
+        jobtitle: "",
+        email: "",
+        phone: "",
+        company: "",
+      });
+      navigate("/getcontacts");
     } else {
       console.log(result.error);
     }
@@ -39,7 +49,9 @@ const CreateContact = () => {
 
   return (
     <Container maxWidth="sm">
-      <Typography variant="h4" gutterBottom>Create your contact</Typography>
+      <Typography variant="h4" gutterBottom>
+        Create your contact
+      </Typography>
 
       <form onSubmit={handleSubmit}>
         <TextField

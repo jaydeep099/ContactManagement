@@ -10,6 +10,7 @@ import SignUp from "./SignUp";
 import  { AuthContextProvider } from "../context/AuthContext";
 import Home from "./Home";
 import CreateContact from "./CreateContact";
+import AllContact from "./AllContact";
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/contacts" element={<CreateContact/>} />
+            <Route path="/getcontacts" element={<AllContact/>} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={ <SignUp />} />
            </Routes>
