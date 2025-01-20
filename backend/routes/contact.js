@@ -32,6 +32,7 @@ router.post("/contact", auth, async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 
 router.put("/contact", auth, async (req, res) => {
   const { id } = req.body;
@@ -74,5 +75,7 @@ router.get("/contact/:id", auth, async (req, res) => {
     console.log(err);
   }
 });
+=======
+>>>>>>> parent of 79ed934 (fetching and deleting contacts are done)
 
 module.exports = router;
