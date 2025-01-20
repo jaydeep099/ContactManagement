@@ -54,7 +54,7 @@ export const AuthContextProvider = ({ children }) => {
         ) {
           setTimeout(() => {
             navigate("/", { replace: true });
-          }, 100);
+          }, 500);
         } else {
           navigate(location.pathname ? location.pathname : "/");
         }
