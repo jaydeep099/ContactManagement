@@ -12,6 +12,7 @@ import AuthContext from "../context/AuthContext";
 import AppTheme from "../components/AppTheme";
 import { styled } from "@mui/material/styles";
 import MuiCard from "@mui/material/Card";
+import { useNavigate } from "react-router-dom";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -37,7 +38,8 @@ export default function SignIn(props) {
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser } = useContext(AuthContext); // Assuming this context handles the login logic
+  const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({ email: "", password: "" });
 
@@ -46,11 +48,23 @@ export default function SignIn(props) {
     setCredentials({ ...credentials, [name]: value });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent form submission default behavior (page reload)
 
     if (validateInputs()) {
-      loginUser(credentials);
+      try {
+        const response = await loginUser(credentials); // Assuming this function returns a promise
+        if (response.success) {
+          navigate("/"); // Redirect after successful login
+        } else {
+          setPasswordError(true);
+          setPasswordErrorMessage("Invalid email or password.");
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        setPasswordError(true);
+        setPasswordErrorMessage("An error occurred while logging in.");
+      }
     }
   };
 
