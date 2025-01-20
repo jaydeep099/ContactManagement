@@ -12,7 +12,7 @@ const CreateContact = () => {
     company: "",
   });
 
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate(); 
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
