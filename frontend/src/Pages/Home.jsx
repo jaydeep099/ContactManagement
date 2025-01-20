@@ -16,9 +16,6 @@ const Home = () => {
   const handleAddContact = () => {
     navigate("/contacts");
   };
-  const handleViewContact = () => {
-    navigate("/getcontacts");
-  };
 
   return (
     <Container maxWidth="sm">
@@ -27,14 +24,6 @@ const Home = () => {
           Welcome {user ? user.name : "Guest"}
         </Typography>
         <hr />
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ mt: 2  , mr:4}}
-          onClick={handleViewContact}
-        >
-          View Contacts
-        </Button>
         <Button
           variant="contained"
           color="primary"
